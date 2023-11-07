@@ -1,6 +1,19 @@
-// モジュール読み込み
-const itemsModule = require('./items')
-const controlModule = require('./control')
+// main.js
 
-var items = itemsModule.itmes
-controlModule.show(items)
+const fs = require('fs');
+const dotenv = require('dotenv');
+const { create } = require('./message');
+
+dotenv.config();
+
+const name = process.env.NAME;
+const number = process.env.NUMBER;
+const message = create(name, number);
+
+fs.writeFile('result.txt', message, (err) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('結果をresult.txtに書き込みました。');
+  }
+});
